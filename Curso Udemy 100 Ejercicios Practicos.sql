@@ -52,3 +52,20 @@ select * from sakila.rental where NOT staff_id=1 AND customer_id > 250 AND inven
 /* Opreador In */
 select * from sakila.customer where first_name IN('MARY','PATRICIA');
 select * from sakila.film where special_features IN ('Trailers','Trailers,Deleted Scenes') and rating IN ('G','NC-17') AND length > 50;
+select * from sakila.category where name not in ('Action','Animation','Children');
+
+/* Practicas con Operador IN */
+select * from sakila.film_text where title IN('Zorro Ark','Virgin Daisy','United Pilot');
+select * from sakila.city where city IN('Chiayi', 'Dongying', 'Fukuyama','Kilis');
+
+/*Operador BetWeen */
+select * from sakila.rental where (customer_id between 300 and 350) and staff_id=1;
+select * from sakila.payment where amount between 3 and 5;
+
+/* Practicas Operador BetWeen*/
+select * from sakila.payment where (amount between 2.99 and 4.99) and staff_id=2 and customer_id in(1,2);
+select * from sakila.address where city_id between 300 and 350;
+select * from sakila.film where (rental_rate between 0.99 and 2.99) and length<=50 and replacement_cost<20;
+
+/* LIKE */
+select * from sakila.actor where first_name like 'A%' and last_name like 'B%';
