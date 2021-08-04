@@ -139,4 +139,18 @@ select *,lcase(concat(first_name, " " ,last_name))as "Nombre Completo" from saki
 
 /* Practica de las Funciones*/
 select *,concat_ws("-",first_name,last_name,email)as CONCAT from sakila.customer;
+select * from film;
+SELECT *,concat_ws("-",film_id,title,description,release_year,language_id,original_language_id,rental_duration,rental_rate,length,replacement_cost,rating,special_features,last_update)as "Peliculas" from sakila.film;
+select customer_id,avg(amount)as prom from sakila.payment group by customer_id having round(prom,0);
+select ucase(city) from sakila.city;
+
+/*CASE*/
+
+
+
+
+
+
+
+
 
