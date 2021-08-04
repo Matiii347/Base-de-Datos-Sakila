@@ -145,10 +145,11 @@ select customer_id,avg(amount)as prom from sakila.payment group by customer_id h
 select ucase(city) from sakila.city;
 
 /*CASE*/
+select address,address2, case when address2 is null then "Sin Direccion 2" else "Con Direccion"end as Comentario from sakila.address;
+select payment_id,amount,case when amount<1 then "Precio Minimo" when amount between 1 and 3 then "Precio Intermedio" else "Precio Maximo" end as Comentario   from sakila.payment;
 
-
-
-
+/*Practicas Case*/
+select title,rental_rate, case when rental_rate<1 then "Pelicula Mala" when rental_rate between 1 and 3 then "Pelicula Buena" else "Pelicula Excelente" end as Comentario   from sakila.film;
 
 
 
