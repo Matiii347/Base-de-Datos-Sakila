@@ -151,7 +151,45 @@ select payment_id,amount,case when amount<1 then "Precio Minimo" when amount bet
 /*Practicas Case*/
 select title,rental_rate, case when rental_rate<1 then "Pelicula Mala" when rental_rate between 1 and 3 then "Pelicula Buena" else "Pelicula Excelente" end as Comentario   from sakila.film;
 
+/*SubQueries*/
+select title from sakila.film where title like 'K%' OR title like 'Q%' and title in (select title from sakila.film where language_id in (select language_id from sakila.language where name='English') );
+select first_name,last_name from sakila.actor where actor_id in (select actor_id from sakila.film_actor where film_id in (select film_id from sakila.film where title='Alone Trip'));
+select title from sakila.film where film_id in(select film_id from sakila.film_category where category_id in (select category_id from sakila.category where name='Family'));
 
+/*Views*/
+Create view ingreso as
+select name,sum(amount)from sakila.category inner join sakila.film_category on category.category_id=film_category.category_id inner join sakila.inventory on film_category.film_id=inventory.film_id inner join sakila.rental on inventory.inventory_id=rental.inventory_id inner join sakila.payment on rental.rental_id=payment.rental_id group by name order by sum(amount) desc limit 5;
+select * from ingreso;
+drop view ingreso;
 
+/*Consultas Multitablas */
+select staff.first_name,staff.last_name, sum(payment.amount)as total from sakila.staff inner join sakila.payment on staff.staff_id=payment.staff_id and payment_date like '2005-08%' group by staff.first_name,staff.last_name;
+select b.title,count(a.actor_id)as 'Contador de Actores' from sakila.film_actor as a inner join sakila.film as b on a.film_id=b.film_id group by b.title;
+select title,count(title)as 'Titulos Disponibles' from sakila.film inner join sakila.inventory on film.film_id=inventory.film_id where title='Hunchback Impossible';
+select first_name,last_name, sum(amount) as 'Total Pagado' from sakila.payment inner join sakila.customer on payment.customer_id=customer.customer_id group by first_name,last_name order by last_name;
+
+/* Insert Into*/
+insert into city(city,country_id) values ('prueba',100);
+select * from sakila.city;
+insert into actor(first_name,last_name) values ('Matias','Funes');
+select * from actor;
+insert into category(name) values('Deportes');
+
+/*Update*/
+update city set city='New York' where country_id=87;
+select * from city where country_id=87;
+update actor set first_name='RAUL' where last_name='GUINNES'; 
+select * from actor where last_name='GUINNES';
+update staff set first_name='Pablo' where staff_id=2;
+
+/*Alter Table*/
+alter table actor add column genero char(1);
+alter table actor drop column genero;
+
+/*Terminamos*/
+select first_name from actor where first_name ='Scarlett'; 
+select last_name from actor where last_name ='Johansson';
+select distinct last_name from actor;
+select last_name,count(*) from actor group by last_name;
 
 
